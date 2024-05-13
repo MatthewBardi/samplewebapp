@@ -40,7 +40,7 @@ metadata:
   name: webapp-ingress
 spec:
   rules:
-  - host: sterlingtest.byethost7.com
+  - host: cloudprophetess.com
     http:
       paths:
       - path: /
