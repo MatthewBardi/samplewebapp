@@ -1,0 +1,52 @@
+name: Build and Deploy to AKS
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the 'main' branch
+
+env:
+  DOCKER_IMAGE_NAME: ifeanyb/sampleapp  # Replace with your Docker image name
+  AKS_CLUSTER_NAME: matthewcluster  # Replace with your AKS cluster name
+  AKS_RESOURCE_GROUP: matthewrg  # Replace with your AKS resource group
+
+jobs:
+
+  build-and-push-image:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build and Push Docker Image
+      uses: docker/build-push-action@v3
+      with:
+        push: true
+        tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
+        
+  deploy-to-aks:
+    name: Deploy to AKS
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Get credentials
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Deploy to AKS
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ env.AKS_RESOURCE_GROUP }}
+        cluster-name: ${{ env.AKS_CLUSTER_NAME }}
+        
+    - name: Deploy application
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl set image deployment/webapp-deployment webapp=${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
