@@ -11,11 +11,15 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 
 # Copy from the build stage
 COPY --from=build-env /app/out .
+
+# Install curl
+RUN apt-get update && \
+    apt-get install -y curl
 
 # Set the entry point
 ENTRYPOINT ["dotnet", "SampleWebApp.dll"]
