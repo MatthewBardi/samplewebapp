@@ -3,7 +3,7 @@ name: Build and Deploy to AKS
 on:
   push:
     branches:
-      - master  # Trigger the workflow on push to the 'master' branch to azure
+      - master  # Trigger the workflow on push to the 'master' branch 
 
 env:
   DOCKER_IMAGE_NAME: ifeanyb/sampleapp  # Replace with your Docker image name

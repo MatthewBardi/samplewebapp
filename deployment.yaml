@@ -50,29 +50,7 @@ spec:
             name: webapp-service
             port:
               number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-egress
-  namespace: default  # Replace with the namespace where your deployment is running
-spec:
-  podSelector:
-    matchLabels:
-      app: webapp
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - ipBlock:
-        cidr: 0.0.0.0/0
-    ports:
-    - port: 80
-      protocol: TCP
-    - port: 443
-      protocol: TCP
----
-# egress-policy.yaml
+# ---
 # apiVersion: networking.k8s.io/v1
 # kind: NetworkPolicy
 # metadata:
@@ -81,7 +59,28 @@ spec:
 # spec:
 #   podSelector:
 #     matchLabels:
-#       app: webapp  # This selects the pods from your deployment
+#       app: webapp
 #   policyTypes:
 #   - Egress
-#   egress: []  # Block all egress traffic
+#   egress:
+#   - to:
+#     - ipBlock:
+#         cidr: 0.0.0.0/0
+#     ports:
+#     - port: 80
+#       protocol: TCP
+#     - port: 443
+#       protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress
+  namespace: default # Replace with the namespace where your deployment is running
+spec:
+  podSelector:
+    matchLabels:
+      app: webapp # This selects the pods from your deployment
+  policyTypes:
+  - Egress
+  egress: [] # Block all egress traffic
