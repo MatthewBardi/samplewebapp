@@ -29,7 +29,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-        envFrom:
+          envFrom:
             - secretRef:
                 name: my-app-settings
           securityContext:
