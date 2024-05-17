@@ -1,0 +1,24 @@
+name: Deploy Helm Chart
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      
+    - name: Deploy Helm Chart
+      run: |
+        helm upgrade --install my-dotnet-app ./my-dotnet-app \
+          --set image.repository=ifeanyb/my-dotnet-app \
+          --set image.tag=latest
