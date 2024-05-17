@@ -147,5 +147,5 @@ jobs:
     - name: Deploy Helm Chart
       run: |
         helm upgrade --install ${{ env.HELM_RELEASE_NAME }} ${{ env.HELM_CHART_PATH }} \
-          --set image.repository=${{ env.HELM_IMAGE_REPOSITORY }} \
-          --set image.tag=${{ github.sha }}
+        #   --set image.repository=${{ env.HELM_IMAGE_REPOSITORY }} \
+        #   --set image.tag=${{ github.sha }}
