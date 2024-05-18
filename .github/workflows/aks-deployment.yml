@@ -193,7 +193,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Get credentials
+    - name: Login to Azure
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -218,6 +218,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Install Helm
       uses: azure/setup-helm@v1
 
@@ -230,4 +235,3 @@ jobs:
     - name: Deploy Application Settings
       run: |
         helm upgrade --install my-dotnet-app ./my-dotnet-app
-
