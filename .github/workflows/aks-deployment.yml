@@ -198,7 +198,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy to AKS
+    - name: Set up AKS context
       uses: azure/aks-set-context@v3
       with:
         resource-group: ${{ env.AKS_RESOURCE_GROUP }}
@@ -219,14 +219,15 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install Helm
-      uses: azure/setup-helm@v3
+      uses: azure/setup-helm@v1
 
-    - name: Get Kubernetes Credentials
-      uses: azure/kubernetes-set-context@v2
+    - name: Set up AKS context
+      uses: azure/aks-set-context@v3
       with:
-        cluster-name: ${{ env.AKS_CLUSTER_NAME }}
         resource-group: ${{ env.AKS_RESOURCE_GROUP }}
+        cluster-name: ${{ env.AKS_CLUSTER_NAME }}
 
     - name: Deploy Application Settings
       run: |
         helm upgrade --install my-dotnet-app ./my-dotnet-app
+
