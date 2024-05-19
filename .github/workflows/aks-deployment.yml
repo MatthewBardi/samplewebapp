@@ -382,12 +382,12 @@ jobs:
       uses: Azure/k8s-deploy@v4
       with:
         manifests: |
-          cr-release-artifacts/your-helm-chart-<version>.tgz
+          cr-release-artifacts/my-dotnet-app-0.1.0.tgz
         namespace: default
         action: upgrade
       inputs:
         releaseName: my-app
-        valueFile: path/to/your/helm/chart/values.yaml
+        valueFile: my-dotnet-app/values.yaml
         install: true
 
     - name: Update Deployment Image
