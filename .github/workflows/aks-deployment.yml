@@ -376,18 +376,18 @@ jobs:
     - name: Package Helm Chart
       uses: helm/chart-releaser-action@v1.5.0
       with:
-        charts_dir: my-app-chart
+        charts_dir: path/to/your/helm/chart
 
     - name: Deploy or Upgrade Helm Release
       uses: Azure/k8s-deploy@v4
       with:
         manifests: |
-          cr-release-artifacts/my-app-chart-<version>.tgz
+          cr-release-artifacts/your-helm-chart-<version>.tgz
         namespace: default
         action: upgrade
       inputs:
         releaseName: my-app
-        valueFile: my-app-chart/values.yaml
+        valueFile: path/to/your/helm/chart/values.yaml
         install: true
 
     - name: Update Deployment Image
