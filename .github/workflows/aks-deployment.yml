@@ -114,7 +114,7 @@ jobs:
         
     - name: Apply ConfigMap
       run: |
-        kubectl apply -f configmap.yaml
+        kubectl apply -f my-dotnet-app/templates/configmap.yaml       
         
     - name: Deploy application
       run: |
