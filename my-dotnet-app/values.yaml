@@ -4,6 +4,9 @@
 
 replicaCount: 1
 
+appsettingsJson: |-
+  {{ .Files.Get "appsettings.json" | trim | nindent 4 }}
+
 image:
   repository: nginx
   pullPolicy: IfNotPresent
@@ -80,6 +83,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-appSettingsSecret:
-  name: my-app-settings

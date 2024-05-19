@@ -17,6 +17,14 @@ spec:
         image: ifeanyb/sampleapp
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: appsettings
+          mountPath: /app/config
+      volumes:
+      - name: appsettings
+        secret:
+          secretName: my-dotnet-app
+      
 ---
 apiVersion: v1
 kind: Service
