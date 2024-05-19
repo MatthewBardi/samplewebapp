@@ -371,7 +371,7 @@ jobs:
 
     - name: Set CR Token
       env:
-        CR_TOKEN: CRTOKEN
+        CR_TOKEN: ${{ secrets.CRTOKEN }}
 
     - name: Package Helm Chart
       uses: helm/chart-releaser-action@v1.5.0
