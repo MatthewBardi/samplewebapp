@@ -312,7 +312,7 @@
 #       run: |
 #         kubectl set image deployment/webapp-deployment webapp=${{ env.DOCKER_IMAGE_NAME }}:${{ github.sha }}
 
-name: Build and Deploy to AKS
+name: Build and Deploy to AKS - azure
 
 on:
   push:
